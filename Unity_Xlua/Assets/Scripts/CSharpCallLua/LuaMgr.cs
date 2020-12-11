@@ -14,6 +14,18 @@ public class LuaMgr :BaseManager<LuaMgr>
     //dump
     private LuaEnv luaEnv;
     /// <summary>
+    /// 得到lua中的_G，这个包括内部的require到的数据，不包括main和require到的lua内的local
+    /// 任意的local都不可以
+    /// </summary>
+    public LuaTable Global
+    {
+        get
+        {
+            return luaEnv.Global;
+        }
+    }
+
+    /// <summary>
     /// 初始化解析器
     /// </summary>
     public void Init()
@@ -27,7 +39,7 @@ public class LuaMgr :BaseManager<LuaMgr>
         //特定路径加载lua资源
         luaEnv.AddLoader(MyCustomLoader);
         //ab包中
-        luaEnv.AddLoader(MyCustomABLoader);
+        //luaEnv.AddLoader(MyCustomABLoader);
     }
     /// <summary>
     /// 给定特定路径，进行重定向lua的位置，并加载
@@ -101,6 +113,11 @@ public class LuaMgr :BaseManager<LuaMgr>
             return;
         }
         luaEnv.DoString(str);
+    }
+    public void DoLuaFile(string fileName)
+    {
+        string str = string.Format("require('{0}')", fileName);
+        DoString(str);
     }
     /// <summary>
     /// 释放lua垃圾

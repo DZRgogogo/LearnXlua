@@ -44,4 +44,8 @@ local function dump(tb, dump_metatable, max_level)
 	return _dump(tb, level)
 end
 table_test = {1,2,3,4,5,6}
-print(dump(table_test))
+haha = 1
+print("主lua启动")
+-- 即使这是在lua中的，也会自动进入重定向函数中找文件
+require("Test")
+--print(dump(table_test))
