@@ -47,5 +47,6 @@ table_test = {1,2,3,4,5,6}
 haha = 1
 print("主lua启动")
 -- 即使这是在lua中的，也会自动进入重定向函数中找文件
-require("Test")
+require("CallClass")
+
 --print(dump(table_test))
